@@ -1,0 +1,1565 @@
+%% 
+%% Copyright 2007-2025 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.3 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+
+% \documentclass[preprint,12pt,authoryear]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+\documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsmath package provides various useful equation environments.
+\usepackage{amsmath}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+% \usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+% \usepackage{titling}
+% \usepackage{cite}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\usepackage{graphicx,float}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{latexsym}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{tkz-tab}
+\journal{Nuclear Physics B}
+
+\begin{document}
+
+\begin{frontmatter}
+
+	%% Title, authors and addresses
+
+	%% use the tnoteref command within \title for footnotes;
+	%% use the tnotetext command for theassociated footnote;
+	%% use the fnref command within \author or \affiliation for footnotes;
+	%% use the fntext command for theassociated footnote;
+	%% use the corref command within \author for corresponding author footnotes;
+	%% use the cortext command for theassociated footnote;
+	%% use the ead command for the email address,
+	%% and the form \ead[url] for the home page:
+	%% \title{Title\tnoteref{label1}}
+	%% \tnotetext[label1]{}
+	%% \author{Name\corref{cor1}\fnref{label2}}
+	%% \ead{email address}
+	%% \ead[url]{home page}
+	%% \fntext[label2]{}
+	%% \cortext[cor1]{}
+	%% \affiliation{organization={},
+	%%            addressline={}, 
+	%%            city={},
+	%%            postcode={}, 
+	%%            state={},
+	%%            country={}}
+	%% \fntext[label3]{}
+
+	\title{Differentiable Lagrangian Shock Hydrodynamics with application to stable shock acceleration of density interfaces} %% Article title
+
+	%% use optional labels to link authors explicitly to addresses:
+	%% \author[label1,label2]{}
+	%% \affiliation[label1]{organization={},
+	%%             addressline={},
+	%%             city={},
+	%%             postcode={},
+	%%             state={},
+	%%             country={}}
+	%%
+	%% \affiliation[label2]{organization={},
+	%%             addressline={},
+	%%             city={},
+	%%             postcode={},
+	%%             state={},
+	%%             country={}}
+
+	\author[llnl]{Kevin Korner} %% Author name
+	\author[llnl]{Brandon Talamini}
+	\author[llnl]{Julian Andrej}
+	\author[llnl]{Michael Tupek}
+	\author[uiuc]{William Moses}
+	\author[llnl]{Daniel Tortorelli}
+	\author[llnl]{Robert Rieben}
+	\author[llnl]{Tzanio Kolev}
+	\author[llnl]{Jamie Bramwell}
+	\author[llnl]{Daniel White}
+	\author[llnl]{Jonathan Belof}
+	\author[llnl]{William Schill}
+	\affiliation[llnl]{
+		organization={Lawrence Livermore National Laboratory},
+		addressline={7000 East Ave},
+		city={Livermore},
+		postcode={94550},
+		state={California},
+		country={United States of America}
+	}
+	\affiliation[uiuc]{
+		organization={University of Illinois Urbana-Champaign},
+		addressline={506 S. Wright St.},
+		city={Urbana},
+		postcode={61801},
+		state={Illinois},
+		country={United States of America}
+	}
+
+	%% Author affiliation
+	\affiliation{organization={},%Department and Organization
+		addressline={},
+		city={},
+		postcode={},
+		state={},
+		country={}}
+
+	%% Abstract
+	\begin{abstract}
+		%% Text of abstract
+		% \input{abstract.tex}
+
+		We develop a gradient based optimization approach for the equations of compressible, Lagrangian hydrodynamics and
+		demonstrate how it can be employed to automatically uncover strategies to control hydrodynamic instabilities arising from
+		shock acceleration of density interfaces. Strategies for controlling the Richtmyer-Meshkov instability (RMI) are of great benefit
+		for inertial confinement fusion (ICF) where shock interactions with many small imperfections in the density interface
+		lead to instabilities which rapidly grow over time. These instabilities lead to mixing which, in the case of laser driven ICF, quenches the runaway fusion process ruining the potential for positive energy return.
+		%
+		We demonstrate that control of these instabilities can be achieved by optimization of initial conditions with ($>100$) parameters. Optimizing over a large parameter space like this is not possible with gradient-free optimization strategies.
+		%judicious
+		This requires computation of the gradient of the outputs of a numerical solution to the equations of Lagrangian hydrodynamics with respect to the inputs.
+		%
+		We show that the efficient computation of these gradients is made possible via a judicious application of (i) adjoint methods, the exact formal representation of sensitivities involving partial differential equations, and (ii) automatic differentiation (AD), the algorithmic calculation of derivatives of functions.
+		%
+		Careful regularization of multiple operators including artificial viscosity and timestep control is required.
+		%
+		We perform design optimization of $>100$ parameter energy field driving the Richtmyer Meshkov instability showing significant suppression while simultaneously enhancing the acceleration of the interface relative to a nominal baseline case.
+	\end{abstract}
+
+	%%Graphical abstract
+	% \begin{graphicalabstract}
+	% %\includegraphics{grabs}
+	% \end{graphicalabstract}
+
+	%%Research highlights
+	% \begin{highlights}
+	% \item Research highlight 1
+	% \item Research highlight 2
+	% \end{highlights}
+
+	%% Keywords
+	\begin{keyword}
+		Topology Optimization \sep Hydrophysics \sep Richtmyer-Meshkov Instability \sep Shock Shaping \sep Interfaces
+		%% keywords here, in the form: keyword \sep keyword
+
+		%% PACS codes here, in the form: \PACS code \sep code
+
+		%% MSC codes here, in the form: \MSC code \sep code
+		%% or \MSC[2008] code \sep code (2000 is the default)
+
+	\end{keyword}
+
+\end{frontmatter}
+% \input{body.tex}
+
+\section{Introduction}
+
+Shock hydrodynamics describe the behavior of some of the most complex phenomena in science and technology.
+%
+Examples abound including supernovae in astrophysics and inertial or magnetic confinement fusion in the laboratory.
+% 
+The physical processes that may occur are manifold; however, much of the complexity may be thought of as arising from dynamical instabilities.
+%
+By way of example, the Richtmyer-Meshkov instability (RMI) occurs when a shock wave -- a discontinuous jump in the thermodynamic state of the material -- impinges on an interface between two materials of differing densities\cite{richtmyer1954taylor,taylor1950instability}.
+%
+The resulting dynamics are famously unconditionally unstable resulting in \textit{jetting} which rips up the interface and mixes the materials together.
+For a comprehensive review of RMI, see~\cite{zhou_rayleightaylor_2017,zhou_rayleightaylor_2017-1} and the references therein.
+%
+%
+RMI has held a critical role in both scientific and technological applications including astrophysics~\cite{zhou2021rayleigh}, mining~\cite{birkhoff1948explosives}, many applications of fluid transport~\cite{zhou2019turbulent} including scramjets~\cite{zhou2021rayleigh}, and laser driven inertial confinement fusion (ICF)~\cite{mikaelian2011extended,remington2019rayleigh} such as is pursued at the National Ignition Facility (NIF).
+%
+Control over RMI induced jetting is thus a grand challenge.
+
+Significant recent effort has gone into optimization involving hydrodynamic control over jetting including gas gun driven experiments~\cite{sterbentz2022design}, and explosively driven linear shaped charges~\cite{kline2024reducing,sterbentz2024explosively}.
+These strategies typically proceed by identifying a \textit{small} number of parameters describing a physical system of interest, performing a large suite of calculations, fitting a machine-learned model to predict certain interesting quantities from a simulation, and then using the resulting model to optimize or otherwise interrogate the behavior of the system~\cite{jekel2024machine,sterbentz2023linear}.
+%
+It is even possible to develop an analytic solution~\cite{schill_suppression_2024} to a reduced and simplified version of this problem.
+A closely related class of problems is the inference of material parameters from complex extreme pressure materials science experiments such as those conducted on pulsed power~\cite{schill2021simultaneous,schill2023inference} or laser~\cite{gorman2023ramp} platforms.
+%
+These techniques are powerful but they are currently limited to a small number of design variables; however, the general case -- i.e. control over an arbitrary interface with potentially $>100$ degrees of freedom remains unsolved.
+%
+The fundamental reason for this has to do with basic characteristics of optimization theory; optimization is very expensive for large numbers of variables in the absence of gradient information and the computation of the objective function gradients in these problems rely on the \textit{derivative of the hydrocode outputs with respect to their inputs}.
+%
+In general optimization problems where the forward solve requires significant computation tends to be limited to O(10) optimization parameters while the inclusion of gradients can readily handle far greater than O(100) degrees of freedom much more efficiently (see~\cite{hottois2022} and the references therein).
+% Gradient based optimization is dramatically more efficient than gradient free optimization; the former can readily handle far greater than O(100) of degrees of freedom whereas gradient free optimization is limited to far smaller O(10 DOF) in many practical scenarios.
+A brief demonstration of the scaling benefit of gradients can be found in Section~(\ref{sec:scaling}).
+%
+Computing this gradient in the context of Lagrangian Shock Hydrodynamics is a challenging task and is one of the key contributions of this paper.
+
+The subject of gradient based optimization involving partial differential equations has seen extensive study.  For instance, topology optimization is a field of engineering and mathematics which deals with optimizing the material layout within a given design space to achieve the best performance under specified conditions and has been applied to studying many different problems~\cite{akerson_optimal_2022, akerson_optimal_2023, bendsoe_topology_2004}.
+%
+Basic adjoint calculations can be found in a variety of texts (see, for instance,~\cite{akerson_optimal_2023,plessix_review_2006,zhangFATODELibraryForward2014,zhangDiscreteAdjointSensitivity2017,zhangPETScTSAdjointDiscrete2022}).
+This has seen significant recent development by some of the authors~\cite{doecode_94261} for nonlinear problems in solid mechanics.
+Recently, a number of authors have begun applying these techniques to challenging problems in high energy physics~\cite{carli2023algorithmic}.
+
+In this article, we present a computational approach that efficiently computes the derivatives of predicted outputs from a high-order finite element Lagrangian hydrodynamics code with respect to its inputs, using a combination of adjoint theory and automatic differentiation.
+%
+We apply this method to a complex interface stability problem, which requires differentiating the time-stepping update, the (partially) assembled force vector, and the zero-dimensional physics at the quadrature points.
+
+
+The remainder of this article will be organized as follows: (i) gradient based optimization of time dependent problems (Section~\ref{sec:TimeDependentGradient}), (ii) discretization by finite elements of Lagrangian shock hydrodynamics (Section~\ref{sec:FiniteElements}), and (iii) the application of this technique to the suppression of RMI suggesting a tantalizing pathway to stable shock acceleration of density interfaces (Section~\ref{sec:LagrangianHydrodynamics}).
+
+
+\section{Gradient based optimization of time dependent problems}\label{sec:TimeDependentGradient}
+
+In this section, we introduce several concepts that are necessary for our ultimate goal
+of computing gradients of a Lagrangian hydrodynamics discretization.
+%
+First, we discuss the two main strategies used to develop adjoints of time dependent problems: differentiate then discretize and discretize then differentiate.
+%
+We argue for the latter case; however, we include the fundamental framwork for both as they provide valuable insight into the structure of the problem.
+%
+Next we discuss methods for verifying the computation of gradients by  checking the error order of convergence.
+%
+We then introduce automatic differentiation (AD), quantities of interest (QoIs) and check-pointing for time dependent problems.
+%
+Finally, we consider a simple example involving multi-particle systems to illustrate the combination of these components.
+
+\subsection{Differentiate then Discretize}\label{sec:TraditionalAdjoint}
+
+One method of conducting an adjoint calculation is to \textbf{\textit{differentiate then discretize}}~\cite{plessix_review_2006}.
+%
+This approach is also sometimes refered to as the \textit{infdim} approach because all continuous fields are varied on their respective function spaces.
+%
+We find a system of equations which can be solved to find the derivative, then we discretize the system in time in order to do calculations.
+%
+We have a design field $\beta$ and a response $y$ that are linked through an initial boundary value problem IBVP such that
+%
+\begin{align}
+	\begin{split}\label{eq:infdim_ibvp}
+		\dot{y} (t, \beta) & = f(y(t,\beta), \beta, t) \, , \\
+		y(0, \beta)        & = y_0 \, .
+	\end{split}
+\end{align}
+%
+As seen above, $y$ is both an implicit and explicit function of $\beta$, with the exception of the initial condition $y_0$, which may be an explicit function of $\beta$.
+%
+We refer to~(\ref{eq:infdim_ibvp}) as the \textit{primal analysis} and $y$ as the \textit{primal response}.
+%
+%
+Upon solving the IBVP, we evaluate a Quantity of Interest (QoI) $O$ that might be the cost or constraint function in an optimization, or the error function in an inverse or identification analysis. We define
+%
+\begin{equation}\label{eq:infdim_qoi}
+	O(\beta) = \int_0^T o(y(t,\beta),\beta) dt + \hat{o}(y(T, \beta), \beta)\, ,
+\end{equation}
+where the integrand $o$, $\hat{o}$ is a differentiable function of $y$ and $\beta$.
+%
+In this notation, $o$ is a running objective while $\hat{o}$ is a terminal objective.
+%
+The solution of the primal problem for $y$ and integration of $O$ generally proceed in tandem.
+%
+We call this the forward pass.
+%
+%
+To solve the optimization/inverse/identification problem we use nonlinear programming algorithms to determine the $\beta$ that minimizes the cost/error function.
+%
+These iterative algorithms require gradients/variations of the QoIs to efficiently update $\beta$ and to verify optimality. The variation of our QoI becomes
+%
+\begin{equation}
+	\delta O(\beta, \delta \beta) = \int_0^T \left( \dfrac{\partial o}{\partial y}(y(t,\beta), \beta) \cdot \delta y(t, \beta, \delta \beta) + \dfrac{\partial o}{\partial \beta}(y(t,\beta),\beta) \cdot \delta \beta\right) dt + \dfrac{\partial \hat{o}}{\partial y} \cdot \delta y(T, \beta, \delta \beta) + \dfrac{\partial \hat{o}}{\partial \beta} \cdot \delta \beta \, .
+\end{equation}
+%
+We use the adjoint method to eliminate the implicit response variation $\delta y(\beta, \delta \beta)$ in the above expression.
+%
+In this method, we augment~(\ref{eq:infdim_qoi}) such that
+%
+\begin{equation}
+	O(\beta) = \int_0^T o(y(t,\beta), \beta) dt + \hat{o}(y(T, \beta), \beta)+ \int_0^T \lambda(t) \cdot (\dot{y}(t, \beta) - f(y(t, \beta), \beta, t)) dt
+\end{equation}
+%
+The \textit{adjoint response} $\lambda$, which is presently an arbitrary field, is used to convert the vector valued dynamics from Equation~(\ref{eq:infdim_ibvp}) into a scalar and integrate it into the objective.
+%
+Because the solution $y$ satisfies the dynamics, the augmented term equals zero.
+%
+We integrate the product of Equation~(\ref{eq:infdim_ibvp}) and $\lambda$ over time to leverage the equality~(\ref{eq:infdim_ibvp}) at all time $t \in [0,T]$.
+%
+Taking the variation of the above, integrating by parts, rearranging and dropping the arguments for conciseness gives
+%
+\begin{align}
+	\begin{split}\label{eq:infdim_sensitivity}
+		\delta O & = \int_0^T \left( \dfrac{\partial o}{\partial y} \cdot \delta y + \dfrac{\partial o}{\partial \beta} \right) dt + \dfrac{\partial \hat{o}}{\partial y}\cdot \delta y(T) + \dfrac{\partial \hat{o}}{\partial \beta} \cdot \delta \beta +                          \\
+		         & \int_0^T \lambda \cdot \left( \delta \dot{y} - \dfrac{\partial f}{\partial y} \cdot \delta y - \dfrac{\partial f}{\partial \beta}\cdot \delta \beta \right) dt                                                                                                   \\
+		         & = \int_0^T \left( \dfrac{\partial o}{\partial y} \cdot \delta y + \dfrac{\partial o}{\partial \beta}  \right) dt + \dfrac{\partial \hat{o}}{\partial y}\cdot \delta y(T) + \dfrac{\partial \hat{o}}{\partial \beta} \cdot \delta \beta+                          \\
+		         & \int_0^T \left[ \delta y \cdot \left( - \dot{\lambda} - \left(\dfrac{\partial f}{\partial y} \right)^T \cdot \lambda \right) - \lambda \cdot \dfrac{\partial f}{\partial \beta} \cdot \delta \beta \right] dt + \left. \delta y \cdot \lambda \right|_0^T        \\
+		         & = \int_0^T \left( \dfrac{\partial o}{\partial \beta} \cdot \delta \beta - \lambda \cdot \dfrac{\partial f}{\partial \beta}\cdot \delta \beta \right) dt - \delta y(0)\cdot \lambda(0) + \dfrac{\partial \hat{o}}{\partial \beta} \cdot \delta \beta +            \\
+		         & \int_0^T \delta y \cdot \left( \dfrac{\partial o}{\partial y} - \dot{\lambda} - \left( \dfrac{\partial f}{\partial y} \right)^T \cdot \lambda \right) dt + \delta y(T) \cdot \left( \dfrac{\partial \hat{o}}{\partial y}(y(T, \beta), \beta) + \lambda(T)\right)
+	\end{split}
+\end{align}
+%
+where we note that $\delta y(0)$ equals the explicity known variation $\delta y_0(\beta, \delta \beta)$, i.e. $\beta$ can describe $y_0$ as well as the function $f$.
+%
+To eliminate the implicitly defined variation $\delta y$ and $\delta y(T)$ we now require heretofore arbitrary adjoint variable $\lambda$ to solve the \textit{adjoint} terminal value boundary value problem
+\begin{align}
+	\begin{split}
+		\dot{\lambda} & = \dfrac{\partial o}{\partial y} - \lambda \cdot \dfrac{\partial f}{\partial y} \\
+		\lambda(T)    & = -\dfrac{\partial \hat{o}}{\partial y}(y(T, \beta),\beta)\, .
+	\end{split}
+\end{align}
+In this way, the sensitivity~(\ref{eq:infdim_sensitivity}) reduces to
+%
+\begin{equation}
+	\delta O = \int_0^T \left( \dfrac{\partial o}{\partial \beta} \cdot \delta \beta - \lambda \cdot \dfrac{\partial f}{\partial \beta}\cdot \delta \beta \right) dt - \delta y_0 \cdot \lambda(0) + \dfrac{\partial \hat{o}}{\partial \beta}\cdot \delta \beta\, .
+\end{equation}
+The solution of the adjoint \textit{terminal} value problem for $\lambda$ and \textit{backward} integration of $\delta O$ generally proceed in tandom.
+%
+We call this the \textit{reverse pass}.
+%
+
+%
+Due to the fact that no discretization was necessary in order to describe both the forward and reverse problems mathematically, it presents itself nicely for theoretical work in the subject.
+%
+This makes it ideal for studying properties of solutions using analytical methods.
+%
+Unfortunately, the vast majority of problems are not analytically integrable in time, so, in order to represent the solution, we must choose time integrators for both the forward and reverse passes as well as any integrators we use for calculating QoIs.
+
+\subsection{Discretize then Differentiate}\label{sec:discretizethendifferentiate}
+In this work, we argue its best to \textbf{\textit{discretize then differentiate}} for the case of nonlinear partial differential equations representing temporal evolution of conserved physical quantities.
+%
+We cannot generally solve~(\ref{eq:infdim_ibvp}) analytically so we resort to some discretization scheme, e.g. Crank-Nicolson, Runge-Kutta, etc. so that~(\ref{eq:infdim_ibvp}) becomes
+%
+\begin{align}
+	\begin{split}\label{eq:discretedynamics}
+		y_k & = f_k(y_{k-1}, \beta, \Delta t) \, , \\
+		y_0 & = y_0\, ,
+	\end{split}
+\end{align}
+%
+where the subscripts $k$ and $k-1$ refer to the times that the quantities are evaluated, e.g. $y_k = y(t_k)$ contains the degrees-of-freedom that are used to approximate $y(t_k)$, $\Delta t$ is the fixed time-step interval, and $\beta$ contains the parameters that are used to discretize $\beta$.
+%
+Note that $f_k$ is the discrete timestep update which is found by composing the dynamics from Equation~(\ref{eq:infdim_ibvp}) with the particular time integration scheme.
+%
+The above equations hold for explicit dynamics, however they can easily be modified to account for implicit updates.
+%
+We likewise cannot integrate the QoI analytically so we again resort to a discretization scheme, e.g. trapezoid, Simpson, etc. so that~(\ref{eq:infdim_qoi}) becomes
+%
+\begin{equation}\label{eq:discreteqoi}
+	O(\beta) = \sum_{i=1}^N o_k(y_k, \beta, \Delta t) \, .
+\end{equation}
+%
+Similar remarks apply for the resolution of the adjoint problem~(\ref{eq:infdim_sensitivity}) and the evaluation of the sensitivity which is now the derivative $\dfrac{\partial O}{\partial \beta}$ rather than the variation $\delta O$.
+%
+
+%
+Note that in the previous analysis, we require consistency in space-time discretization schemes for primal analysis, evaluation of the objective $O$, the adjoint analysis, and evaluation of $\dfrac{\partial O}{\partial \beta}$.
+%
+If the integration schemes for each of these operations are not chosen to be internally consistent (i.e. the spatial discretization is identical and the reverse time integration is appropriately adjoint to the forward time integrator), then each calculation will generate a discretization error which will propagate through to the gradient, see~\cite{jensen_consistency_2014} and the references therein.
+%
+The notion of a ``good'' or accurate derivative will be discussed in Section~(\ref{sec:taylor_test}).
+%
+
+%
+In the \textit{discretize and differentiate} adjoint sensitivity analysis, we follow the same steps as in the infdim formulation, but we replace the infdim~(\ref{eq:infdim_ibvp}) with its discretized counterparts. Mimicking the infdim analysis with the augment QoI becomes
+%
+\begin{align}
+	O_N(\beta) = \sum_{k = 1}^N o_k(y_k, \beta, \Delta t) + \sum_{k = 1}^N \lambda_k^T (y_k - f_k(y_{k-1}, \beta, \Delta t))
+\end{align}
+%
+Note that we omit an explicit terminal objective because it can be integrated into the sum.
+%
+Differentiating with respect to $\beta$ and rearranging leads to
+%
+\begin{align}
+	\begin{split}
+		\dfrac{\partial O}{\partial \beta} & = \sum_{k=1}^N \left( \dfrac{\partial o_k}{\partial \beta}(y_k, \beta, \Delta t) - \lambda_k^T \dfrac{\partial f_k}{\partial \beta}(y_{k-1}, \beta, \Delta t) \right) - \lambda_1^T \dfrac{\partial f_1}{\partial y_0}(y_0, \beta, \Delta t) \dfrac{\partial y_0}{\partial \beta} + \\
+		                                   & \left( \dfrac{\partial y_N}{\partial \beta} \right)^T \left[ \left( \dfrac{\partial o_N}{\partial y_N}(y_N, \beta, \Delta T)\right)^T + \lambda_N \right] +                                                                                                                         \\
+		                                   & \sum_{k=1}^{N-1} \left( \dfrac{\partial y_k}{\partial \beta} \right)^T \left[ \left( \dfrac{\partial o_k}{\partial y_k}(y_k, \beta, \Delta t) \right)^T +\lambda_k - \left( \dfrac{\partial f_{k+1}}{\partial y_k}(y_k, \beta, \Delta t) \right)^T \lambda_{k+1} \right] \, .
+	\end{split}
+\end{align}
+Intermediate steps of the above calculation can be found in Section~(\ref{sec:infdim_math})
+%
+We eliminate the terms involving implicitly defined derivatives $\dfrac{\partial y_k}{\partial \beta}$ by solving the terminal value adjoint problem: at $t_N$ we equate
+%
+\begin{equation}
+	\lambda_N = - \left( \dfrac{\partial o_N}{\partial y_N}(y_N, \beta, \Delta t) \right)^T
+\end{equation}
+%
+and then we proceed backward in time evaluating $y_{N-1}, y_{N-2},\ldots$ where
+%
+\begin{equation}\label{eq:adjointresponse}
+	\lambda_k = \left( \dfrac{\partial f_{k+1}}{\partial y_k} \right)^T \lambda_{k+1} - \left( \dfrac{\partial o_k}{\partial y_k}(y_k, \beta, \Delta t) \right)^T
+\end{equation}
+Upon computing $\lambda_k$, the sensitivity reduces to the readily evaluated expression
+\begin{equation}\label{eq:qoi_sensitivity}
+	\dfrac{\partial O}{\partial \beta} = \sum_{i=1}^N \left( \dfrac{\partial o_k}{\partial \beta}(y_k, \beta, \Delta t) - \lambda_k^T \dfrac{\partial f_k}{\partial \beta} (y_{k-1}, \beta, \Delta t) \right) - \lambda_1^T \dfrac{\partial f_1}{\partial y_0}(y_0, \beta, \Delta t) \dfrac{\partial y_0}{\partial \beta}\, .
+\end{equation}
+%
+
+%
+We now summarize the computations.
+%
+In the forward pass, we assign the initial conditions $y_0 = y_0$ and then, for each time step $t_k$ for $k = 1,2,\ldots,N$, we evaluate $y_k$ from~(\ref{eq:discretedynamics}) and accumulate the QoI of~(\ref{eq:discreteqoi}).
+%
+In the reverse pass, we assign the terminal condition $\lambda_N = - \left( \dfrac{\partial o_N}{\partial y_N}(y_N, \beta, \Delta t)^T \right)$ and then, for each time step $t_k$ for $k = N-1, N-2,\ldots,1$, we evaluate the adjoint repsonse $\lambda_k$ from~(\ref{eq:adjointresponse}) and accumulate the QoI sensitivity of~(\ref{eq:qoi_sensitivity}).
+%
+If the initial condition $y_0$ is a function of $\beta$, then we lastly subtract $\lambda_1^T \dfrac{\partial f_1}{\partial y_0}(y_0, \beta, \Delta t) \dfrac{\partial y_0}{\partial \beta}$ from the sensitivity.
+%
+The main benefit of the \textit{discretize then differentiate} approach lies in the automatic consistency of all the discretization methods used.
+%
+In particular, we require numerical consistency in how the objective functions are evaluated, the forward time integration scheme, and particularly the reverse time integration scheme.
+%
+As will be shown in Section~(\ref{sec:taylor_test}), if integration schemes do not match, non-zero errors will propagate through our solutions.
+%
+This is avoided when discretizing then differentiating as all the integration schemes are kept consistent and there is no choice in backward integration scheme.
+
+\subsection{Graph network approach}\label{sec:graphnetworkapproach}
+The \textit{graph network} approach builds from the discretize then differentiate sensitivity analysis in the previous section.
+%
+To begin we express~(\ref{eq:discreteqoi}) $O_N$ using the forward calculation as
+%
+\begin{equation}\label{eq:graph_qoi}
+	O_k(\beta) = O_{k-1} + o_{k}(y_N, \beta, \Delta t)\, ,
+\end{equation}
+%
+for $k=1,2,\ldots,N$ with the understanding that $O_0 = 0$.
+%
+In this way, the forward pass can be summarized via the \textit{graph} depicted in Figure~\ref{fig:graph_forward}.
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[trim={0 20.cm 7.5cm 0},clip]{figure_1.png}
+	\caption{Forward pass: QoI computation.}\label{fig:graph_forward}
+\end{figure}
+%
+Indeed, as just mentioned, in the forward pass we assign the initial condition $y_0 = y_0$ and then for each time step $t_k$ for $k = 1,2,\ldots, N$ we evaluate $y_k$ from~(\ref{eq:discretedynamics}) and accumulate the QoI of~(\ref{eq:graph_qoi}).
+%
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[trim={0 17cm 7.5cm 0},clip]{figure_2.png}
+	\caption{Reverse pass: Adjoint computation.}\label{fig:graph_reverse}
+\end{figure}
+
+%
+In calculating the gradients of the objective with respect to our intitial states and design parameters, we slightly modify the previously discussed \textit{discretize then differentiate} reverse pass.
+%
+Mathematically, the \textit{graph} and \textit{discretize then differentiate} approaches are identical, we merely introduce some notational conveniences and intermediate quantities.
+%
+The main benefit of a \textit{graph network} approach is that complex sets of function calls can be considered as nodes of a graph.
+%
+Then, we simply need to traverse the graph backwards to calculate derivatives.
+%
+This process allows for additional flexibility when considering complex physics and dynamical systems.
+%
+In so far as the notation is concerned, we use the over-line to denote \textit{summands} of the partial derivatives of $O_N$ wrt. the overlined quantities quantities, e.g. all $\bar{\beta}$ are summed to evaluate $\sum \beta = \dfrac{\partial O_N}{\partial \beta}$, likewise all $\bar{y}_k$ are summed to evalutate $\sum \bar{y}_k = \dfrac{\partial O_N}{\partial y_k}$.
+%
+Note that the $\sum \bar{y}_k = \dfrac{\partial O_N}{\partial y_k}$ are not know; they are annihilated by the backward recursion adjoint sensitivity whereupon the are replaced by $\bar{\beta}$ and $\bar{y}_{k-1}$ summands to $\dfrac{\partial O_N}{\partial \beta}$ and $\dfrac{\partial O_N}{\partial y_{k-1}}$.
+%
+The unknown sensitivity $\sum \bar{y}_{k-1} = \dfrac{\partial O_N}{\partial y_{k-1}}$ from time step $t_k$ is reset for time step $t_{k-1}$ and subsequently eliminated whereas the sensitvity summands $\bar{\beta}$ are continually added for all time steps.
+%
+These backward recursions continue until we are left with $\dfrac{\partial O_N}{\partial \beta}$ and $\dfrac{\partial O_N}{\partial y_0} = \dfrac{\partial O_N}{\partial y_0}$, the latter being the sensitivity wrt. the initial conditions.
+%
+Note that in the reverse pass, sums occur at the nodes where information splits in the forward pass.
+%
+For instance, in the forward pass, the output $y_k$ of the $y_k = f_k(y_{k-1}, \beta, \Delta t)$ analysis block is input into both the $O_k = O_{k-1} + o_k(y_k, \beta, \Delta t)$ QoI accumulation block and the $y_{k-1} = y_k$ increment block; in the reverse pass $\bar{y}_k$ is output from QoI accumulation and increment blocks and summed before it is input to the analysis block.
+%
+
+%
+The beauty of the graph is that it automatically organizes the sensitivity computations.
+%
+For example, the analysis block takes as input $(y_{k-1}, \beta, \Delta t)$ and spits out $y_k$.
+%
+In the sensitivity analysis, the input to this block is $\sum \bar{y} = \dfrac{\partial O_N}{\partial y_k}$ and the output is $\bar{y}_{k-1}$ and $\bar{\beta}$ (as $\Delta t$ is a constant).
+%
+The derivatives $\bar{y}_k$ and $\bar{\beta}$ can be evaluated with AD.
+%
+The exact implementation of AD at this level depends somewhat on the type and scale of the problem.
+%
+In simple problems, the whole $\bar{y}_k$ and $\bar{\beta}$ can be found by writing the forward problem as a simple function call and using a code based automatic differentiation library to parse the derivatives of these calls.
+%
+In more complex problems, such as those involving HPC, it is important to control the scale where software based AD tools are used in order to avoid holding large states in memory and avoid non-differentiable function calls such as scatter and gather operations.
+%
+We demonstrate the specific implementation for large scale problems in Section~\ref{sec:LagrangianHydrodynamics} where automatic differentiation libraries are used in scalable and memory efficient ways.
+%
+Summarizing, the graph organizes the sequence of the computations for the sensitivity analysis and AD evaluates the necessary derivatives for the sensitivity analysis; thus fully automating the sensitivity analysis.
+
+\subsection{Computational Considerations}
+While the above calculations are fundamental for building and studying the sensitivity analysis of a dynamical system, there are aspects we consider outside of the scope of the sensitivity analysis.
+
+\subsubsection{Assessment of gradient behavior}\label{sec:taylor_test}
+Our metric for what we consider to be an ``accurate'' gradient is whether it satisfies the famous Taylor remainder convergence test. Assume we are given a function $f$ and another function $df$ which is claimed to be the derivative of $f$. We can verify this claim by Taylor expanding it and checking the convergence.
+\begin{align}
+	f(x + h \delta x) = f(x) + h df(x)\cdot \delta x + O(h^2) \, ,
+\end{align}
+if we choose $\delta x$ to be normalized and $h \in \mathbb{R}$ to be small. This can also be written as
+\begin{align}\label{eq:taylor_test}
+	T(x, h, \delta x) = \|f(x + h \delta x) - f(x) - h df(x) \cdot \delta x \| = O(h^2)\, .
+\end{align}
+Therefore, in order to verify whether the given function $df$ is the derivative of the function $f$, we verify not only that the error goes to zero, but that we have quadratic convergence of the left hand side of Equation~\ref{eq:taylor_test}. Additionally, we verify that the direct error in the gradient ($h T(x, h, \delta x)$) also goes to zero.
+
+% \begin{align}
+% 	\dot{\lambda} &= - \lambda \cdot \dfrac{\partial f}{\partial y} \\
+% 	\frac{\lambda_{i} - \lambda_{i - 1} }{\Delta t} &= - \lambda_{i} \cdot \dfrac{\partial f}{\partial y}(y_i) \\ 
+% 	-\lambda_{i-1} &= - \lambda_i - \Delta t \lambda_i \cdot \dfrac{\partial f}{\partial y} \\
+% 	\lambda_{i-1} &= \lambda_i + \Delta t \lambda_i \cdot \dfrac{\partial f}{\partial y}
+% \end{align}
+To demonstrate, consider a nonlinear spring with dynamics given by $\ddot{y}(t) + k y(t) + \alpha y(t)^3 + b \dot{y}(t) = 0$.
+%
+The parameters $k$, $\alpha$, and $\beta$ are the spring constant, hardening, and viscosity parameters, respectively.
+%
+For simplicity, we set $k = \alpha = b = 1$. To integrate the system in time, we use a forward Euler integration scheme where $y_{i+1} = y_i + \Delta t f(y_i)$
+%
+For the backwards solve of the \textit{differentiate then discretize} approach, we use a backwards Euler scheme which uses the forward step $\left(\lambda_{i-1} = \lambda_i + \Delta t \lambda_i \cdot \dfrac{\partial f}{\partial y}(y_i)\right)$.
+%
+Note that this choice of backwards integration scheme is equivalent to if we had used an implicit forward method; however, because we use standard forward Euler, we introduce a numerical inconsistency.
+%
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[width=.5\textwidth]{figure_3.png}
+	\caption{Error for the Taylor test for various perturbation magnitudes $h$. The red line demonstrates incorrect scaling when mismatched integration schemes are used to calculate derivatives over a timestep. The black line (using the \textit{graph network} approach) shows agreement with the blue line, indicating correct derivatives.}\label{fig:taylor_error}
+\end{figure}
+%
+We integrate this system with initial conditions of $y(0) = 1.1$, $\dot{y}(0) = 5.0$ and integrate until $T = 10$, define a scalar objective function $O(y_f) = y(T) + \dot{y}(T)$, and conduct the above Taylor test and plot the Taylor error in Figure~\ref{fig:taylor_error}.
+%
+We note that the \textit{graph network} approach is numerically equivalent to the \textit{discretize then differentiate} approach and thus gives the same gradient values.
+%
+As can be seen, the \textit{graph network} has proper convergence compared to that of the \textit{differentiate then discretize} approach.
+%
+Additionally, the \textit{differentiate then discretize} gradient doesn't properly converge in the correct sense.
+%
+This can present many problems in higher order optimization schemes, as accurate gradients are necessary.
+
+
+Note that the discrepancy came in the choice of backwards integrator for the reverse problem in the \textit{differentiate then discretize} method.
+%
+While choosing the ``correct'' integrator when using a forward Euler method can easily be remedied, when using more complex time integrators, namely higher order Runge-Kutta schemes, the choice is not as obvious.
+
+Various works, see~\cite{sandu2006, sandu2007, serna2016, tran_2024}, discuss the topic of consistency of discrete adjoint time integration schemes.
+%
+While there are analytic solutions for some cases, namely one-step integration schemes, a general solution for complex multi-step methods is not known to exist, especially in the case of adaptive timestepping.
+
+%
+The \textit{graph network} approach, consequently, presents a significant advantage over the \textit{differentiate then discretize} approach in that the choice of integrator for the reverse pass is exactly specified.
+\subsubsection{Automatic differentiation}\label{sec:automatic_differentiation}
+Automatic differentiation (also known as ``auto-diff'', ``auto-grad'', or simply ``AD'') is a computational technique used to efficiently and accurately evaluate derivatives of mathematical functions.
+%
+It plays a crucial role in various fields such as machine learning, optimization, physics, simulations, and scientific computing.
+%
+The most popular AD libraries are PyTorch\cite{paszke2017automatic}, TensorFlow\cite{tensorflow2015-whitepaper}, and Jax\cite{jax2018github}, specifically due to their integrations into popular machine learning libraries.
+
+
+The basic idea behind AD is to decompose functions into a sequence of elementary operations (such as addition, multiplication, exponentiation, etc.), for which the derivatives are well known.
+%
+Then by applying the chain rule recursively to these operations, AD can compute the derivative of the entire function with respect to its input variables.
+%
+This technology enables rapid prototyping of tools involving differentiation, and can readily differentiate complex functions.
+
+
+AD is extremely useful when developing analytical tools.
+%
+Consider the case where AD is currently being used extensively: machine learning.
+%
+Without AD tools, users of ML packages such as PyTorch and Tensorflow would have to manually specify gradients of their loss functions with respect to the neural network architecture.
+%
+While this is not an impossible task, it would put severe limitations on who can use these tools, how quickly different models can be tested, and introduce many avenues for error.
+%
+Arguably, the integration of automatic differentiation is the impetus which allowed the field to thrive as it has today.
+
+
+AD is also important in expanding the scope of problems we can study.
+%
+In many cases, especially problems with iteration, composition, recursion, branches, and complex algebras, taking derivatives by hand is not feasible and, as with the previous point, extremely prone to error.
+%
+A much more convenient approach is to define computational methods which can handle the complexity and accurately traverse the computational graphs.
+
+
+Automatic differentiation, however, is not without its faults and drawbacks.
+Often, naive implementations of AD can lead to inefficient run times and massive memory usages.
+%
+This is because, unless otherwise specified, the tool must hold the entire computational graph, including sensitivities, in memory all at once.
+%
+In large scale problems, particularly those involving dynamic simulations of hydrodynamic systems, this is cost prohibitive.
+%
+As a result, we must control how we apply automatic differentiation and carefully consider various aspects such as memory allocation and code structure.
+
+
+For the following work, we use the automatic differentiation library Enzyme (\cite{moses_instead_2020, moses_reverse-mode_2021}).
+%
+This framework presents a few benefits.
+%
+First, LLVM compilers allow us to use various programming languages in conjunction with this tool, opening up opportunities such as Julia and C++.
+%
+Next, compile time optimization creates fast and reliable tools which are essential to generate code which can run at large scales on HPC.
+
+
+
+For the work in Section~\ref{sec:FiniteElements}, we use the MFEM library (\cite{anderson_mfem_2021}) due to its excellent scaling to HPC as well as various features such as partial assembly, sum factorization, native support for arbitrarily high order elements.
+%
+Additionally, it is written in C++, which allows us to use Clang compilers (\href{https://llvm.org/}{https://llvm.org/}) to link with the Enzyme library for automatic differentiation.
+%
+A differentiable finite element library named $\partial \text{FEM}$ (\cite{andrej2024b}) is currently in production to natively support automatic differentiation through the finite element function call stack.
+
+\subsubsection{Data storage/checkpointing}\label{sec:checkpointing}
+When calculating adjoints for nonlinear dynamial systems it is necessary to access the state data of every timestep from the forward solve during the reverse pass.
+%
+This presents an issue in complex problems with many time steps and fine discretizations, as memory (RAM) can quickly become a limitation.
+%
+For example, a typical hydrodynamic problem can involve solving for a system with a few million parameters.
+%
+This system may require $O(1M)$ time steps to fully resolve. Assuming we are storing each parameter in double precision,
+
+\begin{align*}
+	\left(\frac{8 \text{ bytes}}{\text{parameter}} \right) \left(10^6 \text{ parameters} \right) \left( 10^6 \text{ time steps} \right) \approx 8 \text{ terabytes}	\, .
+\end{align*}
+This, unfortunately, is already exceeding the memory resources of current compute systems, and the problem becomes worse with more complex multiphysics and long duration simulations.
+
+
+One option for addressing this issue is to selectively store data to disk and load it into RAM when needed.
+%
+This process is often inefficient in practice due to the relatively low bandwidth and high latency of disk reads and writes, leading to bad performance of both the forward and reverse solves.
+%
+Another option is the use a checkpointing scheme.
+%
+The strategy here is to only save a relatively small number of simulation states in (relatively higher bandwidth) RAM.
+%
+On the reverse pass, the data for each state going back in time is required for the adjoint calculation.
+%
+When a state is reached that is not currently stored in RAM, the most recently saved checkpoint is fetched from RAM and the subsequent data states are recomputed by integrating forward in time again until the desired state is available.
+%
+Algorithms for constructing an optimal schedule for checkpointing and fetching to minimize the required number of recompute steps have been developed in:~\cite{griewank2000checkpoint}, which provides an optimal method when the number of time steps is known up front;~\cite{wang2009checkpoint}, which has good performance even when the number of steps is initially unknown (e.g., when the stable timestep evolves as the simulation progresses); and~\cite{hermann2020checkpoint} (and other references within), where different levels of available memory with varying costs and resources are considered.
+%
+Here we use the dynamic checkpointing algorithm from~\cite{wang2009checkpoint} to eventually allow for the possibility of varying timesteps, and we are currently only checkpointing to a single level of memory, namely, RAM.
+%
+The tradeoff between memory and compute time in our framework can be seen in Figure~\ref{fig:checkpointing}.
+%
+When traversing the states backwards in order to accumulate the gradients, we will reach states which are not saved in the checkpoint buffer.
+%
+When this occurs, we load the last checkpointed state and reconstruct the current needed state, saving and recalculating as necessary as per the checkpointing algorithm.
+%
+In all cases shown, by storing only $1.5\%$ of the total data in an optimal manner, we incur an additional cost of about $1$ forward solve for recomputing the required states.
+%
+The additional cost decays roughly linearly to zero in the limit where $100\%$ of the data is stored.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[width=.5\textwidth]{figure_4.png}
+	\caption{Amount of additional compute time added (measured in terms of the time of the forward solve) added given a memory budget written as a percentage of the total number of states from the forward solve. The different lines are for different numbers of total states from the forward solve.}\label{fig:checkpointing}
+\end{figure}
+
+\subsubsection{Gradient based optimization}
+The above methods allow us to calculate the derivative of some objective function with respect to the initial (generalized) state.
+%
+Access to this gradient, coupled with a gradient descent algorithm, allows us to minimize (or maximize) the given objective function.
+
+
+For example, given an initial state $y_0$, we can calculate the forward solve to evaluate $O(y_0)$, then the adjoint solve to evaluate $\dfrac{\partial O}{\partial y_0}$. We then update the initial state with
+\begin{align*}
+	y_0 \leftarrow y_0 - \alpha \dfrac{\partial O}{\partial y_0} \, ,
+\end{align*}
+where $\alpha$ is a chosen gradient descent parameter.
+An outline of this problem structure can be seen in Figure~(\ref{fig:optimization_loop}).
+\begin{figure}[!hbt]
+	\centering
+	\begin{tikzpicture}
+		\draw(0, 0) node[inner sep=0]{\begin{subfigure}[b]{\textwidth}
+				\centering
+				\begin{tikzpicture}
+					\coordinate(IG) at (-1.5, 1);
+					\coordinate (A) at (0,0);
+					\coordinate (B) at (1.5,0);
+					\coordinate (C) at (3.0,0);
+					\coordinate (D) at (4.5,0);
+					\coordinate (O) at (5.75,0.0);
+					\coordinate (xiA) at (0,-1);
+					\coordinate (xiB) at (1.5,-1);
+					\coordinate (xiC) at (3.0,-1);
+					\coordinate (xiD) at (4.5,-1);
+					\coordinate (F) at (-1, -0.5);
+					% \coordinate (E) at (6.0,0);
+					\draw[->] ($(A) + (0.1, 0)$) -- ($(B) - (0.1, 0)$);
+					\draw[->] ($(B) + (0.1, 0)$) -- ($(C) - (0.1, 0)$);
+					\draw[->] ($(D) + (0.1, 0)$) -- ($(O) - (0.1, 0)$);
+					\draw[->] ($(IG) + (0.1, -0.1)$) -- ($(A) + (-0.1, 0.1)$);
+
+					\draw ($(IG) + (-0.3, 0.3)$) node {Initial Guess};
+					\draw [black, fill=black](IG) circle(0.05);
+
+					\draw ($(A) + (0.0, 0.3)$) node {$y_0$};
+					\draw [black,fill=black](A) circle(0.05);
+					\draw ($(B) + (0.0, 0.3)$) node {$y_1$};
+					\draw [black,fill=black](B) circle(0.05);
+					\draw ($(C) + (0.0, 0.3)$) node {$y_2$};
+					\draw [black,fill=black](C) circle(0.05);
+					\draw ($(D) + (0.0, 0.3)$) node {$y_{N_{t-1}}$};
+					\draw [black,fill=black](D) circle(0.05);
+					\draw ($(F) + (-0.75, 0.05)$) node {Filters};
+					\draw [black,fill=black](F) circle(0.05);
+					\draw (3.75, 0) node {...};
+
+
+					\draw ($(xiA) - (0.0, 0.3)$) node {$\lambda_0$};
+					\draw [black,fill=black](xiA) circle(0.05);
+					\draw ($(xiB) - (0.0, 0.3)$) node {$\lambda_1$};
+					\draw [black,fill=black](xiB) circle(0.05);
+					\draw ($(xiC) - (0.0, 0.3)$) node {$\lambda_2$};
+					\draw [black,fill=black](xiC) circle(0.05);
+					\draw ($(xiD) - (0.0, 0.3)$) node {$\lambda_{N_{t-1}}$};
+					\draw [black,fill=black](xiD) circle(0.05);
+					\draw (3.75, -1) node {...};
+
+
+					\draw[->] ($(xiB) - (0.1, 0)$) -- ($(xiA) + (0.1, 0)$);
+					\draw[->] ($(xiC) - (0.1, 0)$) -- ($(xiB) + (0.1, 0)$);
+					\draw[->] ($(O) - (0.1, 0.1)$) -- ($(xiD) + (0.1, 0.1)$);
+					\draw[->] ($(xiA) + (-0.1, 0.)$) -- ($(F) - (-0.1, 0.1)$);
+					\draw[->] ($(F) + (0.1, 0.1)$) -- ($(A) - (0.1, 0.0)$);
+					\draw ($(O) + (0.0, 0.3)$) node {$O$};
+					\draw [black, fill=black](O) circle(0.05);
+
+					\draw (2.5, 1) node {Forward Solve};
+					\draw (2.5, -2) node {Adjoint Solve};
+				\end{tikzpicture}
+			\end{subfigure}
+		};
+	\end{tikzpicture}
+	\caption{Graph outline of the optimization cycle starting with an initial guess $y_0$. The solution is propagated from $y_0$ to $O$. If the objective is not sufficiently converged, then the bottom path is taken to calculate the gradient. Then, the filters can be applied then the initial guess can be updated. This process can be iterated until convergence.}\label{fig:optimization_loop}
+\end{figure}
+
+%\subsection{Problem Structure for Optimization}
+Many of these optimization problems follow a similar structure (i) problem setup which defines physics and initial conditions, (ii) forward pass which advances time-stepping algorithm, (iii) objective function which maps final state(s) to a scalar value which we wish to minimize, and (iv) adjoint calculation via reverse pass where the gradient is accumulated.
+
+\subsubsection{Filters}
+After completing the adjoint solve loop as shown in Figure~\ref{fig:optimization_loop}, there is a step where filters are applied.
+%
+A filter, in this case, is any operation which changes the full gradient vector.
+%
+A few common uses of filters for optimization problems can be regularity (enforcing continuity or differentiability), subsampling (reducing the DOFs to a subset), or physical constraints.
+%
+Historically this this step was used to eliminate the ubiquitous checkerboarding modes present in density based design optimization~\cite{sigmund1997}.
+%
+The choice of filter is problem dependent and outside of the scope of this work, however it plays a vital role in the performance and implementation of many optimization algorithms~\cite{bourdin2001}.
+%
+A more complete discussion of filters in PDE constrained optimization can be found in~\cite{bourdin2001, sigmund2007, zhou2015} and many more works.
+%
+
+\subsubsection{Example: Optimizing Multi-Particle Systems}\label{sec:ParticleDynamics}
+For an introductory example, we introduce a system of interacting particles with two-body interactions. We label particles with degrees of freedom
+\begin{align*}
+	\text{Position} & - \mathbf{x} \\
+	\text{Velocity} & - \mathbf{v} \\
+	\text{Charge}   & - q
+\end{align*}
+Each particle is being acted upon by Coulomb and gravitational forces of the form
+\begin{align*}
+	\mathbf{F}_i = 	\sum_{j \neq i} \frac{q_i q_j \mathbf{r}_{ij}}{\| \mathbf{r}_{ij}\|^3} - g \mathbf{e}_2\, ,
+\end{align*}
+where the subscripts $i$ and $j$ indicate individual particles, $\mathbf{r}_{ij} = \mathbf{x}_i - \mathbf{x}_j$, $g$ is the gravitational constant, and $\mathbf{e}_2$ is the direction of the gravitational force.
+%
+The inclusion of the Coulomb interaction causes the dynamics of the system to be nonlinear.
+%
+The dynamics of the system are given by
+\begin{align*}
+	\dot{\mathbf{x}}_i & = \mathbf{v}_i \\
+	\dot{\mathbf{v}}_i & = \mathbf{F}_i \\
+	\dot{q}_i          & = 0
+\end{align*}
+
+Particles are initialized at random (non-overlapping) locations with zero initial velocity and uniform charge $q_i = 1.0$.
+%
+The forward trajectory can be found by composing the physics with a time integration scheme. We choose a 4th order Runge-Kutta scheme summarized by
+\begin{align}
+	\begin{split}\label{eq:rk4}
+		y_{k+1} & = y_k + \frac{\Delta t}{6}(k_1 + 2 k_2 + 2 k_3 + k_4)\, ,                     \\
+		k_1     & = f(t_k, y_k)\, ,                                                             \\
+		k_2     & = f \left( t_k + \frac{\Delta t}{2}, y_k + \frac{\Delta t}{2} k_1 \right)\, , \\
+		k_3     & = f \left(t_k + \frac{\Delta t}{2}, y_k + \frac{\Delta t}{2} k_2 \right) \, , \\
+		k_4     & = f \left( t_k + \Delta t, y_k + \Delta t k_3 \right) \, .
+	\end{split}
+\end{align}
+
+%\subsection{Objective Function}
+As an illustrative objective function, let's define a quantity of interest of the form
+\begin{align*}
+	O = \frac{1}{2}\sum_{i = 0}^{N_p - 1} \| \mathbf{x}_i^f - \mathbf{x}_i^* \|^2
+\end{align*}
+where $\mathbf{x}_i^f$ is the final position of the particle, $\mathbf{x}_i^* = R (\cos \left( \frac{2 \pi i}{N_p} \right) \mathbf{e}_1 - \sin \left(\frac{2 \pi i }{N_p} \right) \mathbf{e}_2)$ and $R$ is the radius of the circle we wish to target.
+%
+The goal is to minimize the above function with respect to the initial state variables. We will specifically consider the case where we are only allowed to control the initial velocity of each particle and not the position or charge.
+%
+The initial derivative of the objective function can be found either through manual calculation or by using automatic differentiation.
+
+
+
+%\subsection{Adjoint Calculation}
+The adjoint of this integration scheme can be summarized as
+\begin{align*}
+	M             & = \lambda \cdot y_{k+1}                                                                                                                                                                                                                \\
+	\bar{M}       & = 1                                                                                                                                                                                                                                    \\
+	\bar{y}_{k+1} & = \bar{M} \lambda                                                                                                                                                                                                                      \\
+	\bar{k}_4     & = \frac{\Delta t}{6}\bar{y}_{k+1}                                                                                                                                                                                                      \\
+	\bar{k}_3     & = \Delta t \bar{k}_4 \cdot \dfrac{\partial f}{\partial y}(t_k + \Delta t, y_k + \Delta t k_3) + \frac{\Delta t}{3}\bar{y}_{k+1}                                                                                                        \\
+	\bar{k}_2     & = \frac{\Delta t}{2}\bar{k}_3 \cdot \dfrac{\partial f}{\partial y} \left( t_k + \frac{\Delta t}{2}, y_k + \frac{\Delta t}{2} k_2 \right) + \frac{\Delta t}{3}\bar{y}_{k+1}                                                             \\
+	\bar{k}_1     & = \frac{\Delta t}{2}\bar{k}_2 \cdot \dfrac{\partial f}{\partial y} \left( t_k + \frac{\Delta t}{2}, y_k + \frac{\Delta t}{2} k_1\right) + \frac{\Delta t}{6} \bar{y}_{k+1}                                                             \\
+	\bar{y}_k     & = \bar{y}_{k+1} + \bar{k}_4 \cdot \dfrac{\partial f}{\partial y}\left(t_k + \Delta t, y_k + \Delta t k_3 \right) + \bar{k}_3 \cdot \dfrac{\partial f}{\partial y}\left( t_k + \frac{\Delta t}{2}, y_k + \frac{\Delta t}{2} k_2 \right) \\ &+ \bar{k}_2 \cdot \dfrac{\partial f}{\partial y}\left( t_k + \frac{\Delta t}{2}, y_k + \frac{\Delta t}{2} k_1 \right) + \bar{k}_1 \cdot \dfrac{\partial f}{\partial y}\left( t_k, y_k \right)\, .
+\end{align*}
+
+By calculating $\bar{y}_k$ using the above algorithm, we have the incremental adjoint. Note that the above can be implemented manually, or calculated using an automatic differentiation package, defining custom gradients for the adjoints of the physics. By accumulating the incremental adjoint from the final time step to the initial time step using methods described in~\ref{sec:graphnetworkapproach}, we obtain the gradient with respect to the objective function.
+%
+Using the methods described in the previous sections, we begin with a set of initial states
+\begin{align*}
+	\mathbf{x}_i\, ,\mathbf{v}_i\, , q_i
+\end{align*}
+We can simulate the forward problem by using the 4th Order Runge-Kutta described in equations~\ref{eq:rk4}.
+%
+In the solve, we cache all of the states in the forward solve. We then calculate the objective function and its initial gradient (with respect to the final state).
+%
+Then, apply the incremental adjoint to march backwards in time (using the cached data) until the initial time step.
+%
+At the end of this process, we have the gradient of the objective function with respect to the initial positions, velocities, and charges.
+%
+We can then use an optimization algorithm, in our case conjugate gradient descent, to update the initial conditions.
+%
+Because we only wish to optimize with respect to the initial velocities, we only update those quantities and zero out the perturbations of the positions and charges.
+%
+This process can be repeated until convergence.
+
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{tikzpicture}
+		\draw(0, 0) node[inner sep=0]{\begin{subfigure}[b]{.4\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{figure_6a.png}
+				\caption{}
+				\label{fig:particle_configs}
+			\end{subfigure}
+		};
+		\draw(6, 0) node[inner sep=0]{\begin{subfigure}[b]{.4\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{figure_6b.png}
+				\caption{}
+				\label{fig:particle_error}
+			\end{subfigure}
+		};
+		% Additional Writings
+		\draw(-1.4, 2.1) node[inner sep=0]{\footnotesize Original};
+		\draw(0.85, 2.1) node[inner sep=0]{\footnotesize Optimized};
+	\end{tikzpicture}
+	\caption{(a) Plots of the unoptimized (black) and optimized solutions (blue). (b) Plot of the error in the conjugate gradient solve demonstrating linear slope in the log-y scale.}
+
+\end{figure}
+
+While optimization of the positions of a system of particles seems straightforward, it actually illuminates many features of dynamic optimization.
+%
+Inspection of the numerical solution of this particular particle system gives chaotic results in the informal sense that seemingly small changes may yield significantly different outcomes.
+%
+We have found that there is often an interesting sweet spot in such hyperbolic systems wherein usage of gradient information is exceptionally meaningful; systems which are either very chaotic or not chaotic at all are rather boring from a gradient optimization perspective, whereas systems which are somewhat chaotic can be readily controlled employing gradient optimization.
+%
+While we have no formal proof of this behavior, we suspect that this trend is actually quite general.
+\section{Finite Element Method discretization of Lagrangian Hydrodynamics}\label{sec:FiniteElements}
+In this section, we apply the techniques discussed in the previous section to develop a method for computing adjoints of the equations of Lagrangian Hydrodynamics. We focus on a particular high-order discretization method which is described in~\cite{dobrev_high-order_2012}.
+%
+This requires special considerations for features like artificial viscosity and time step estimates.
+%
+We review the spatial discretization of these equations into finite element bases, and the computation of the adjoint of each of these terms.
+\subsection{Summary of Equations}
+%
+The equations of Lagrangian Hydrodynamics (see~\cite{dobrev_high-order_2012, harlow_fluid_1971} for considerably more background and detail) describe the flow of continuous matter under the action of extreme pressures and energy deposition.
+%
+The differential forms of the equations of motion, as defined in an Eulerian reference frame are:
+\begin{align}
+	\begin{split} \label{eq:lagrangianhydroequations}
+		\text{Momentum conservation}: \quad \quad \rho \dfrac{d v}{dt}          & = \nabla \cdot \sigma \, , \\
+		\text{Mass conservation}: \quad \quad \frac{1}{\rho} \dfrac{d \rho}{dt} & = - \nabla \cdot v \, ,    \\
+		\text{Energy conservation}: \quad \quad \rho \dfrac{d e}{d t}           & = \sigma : \nabla v \, ,   \\
+		\text{Equation of motion}: \quad \quad \dfrac{d x}{d t}                 & = v\, ,                    \\
+		\text{Stress Relation}: \quad \quad \sigma                              & = - p I + \sigma_v \, ,
+	\end{split}
+\end{align}
+where $v$ is the material velocity, $e$ is the internal energy per unit density, $\rho$ is the current density, $p$ is the pressure calculated through an equation of state (EOS), $\sigma$ is the stress, and $\sigma_v$ is an artificial viscosity
+%
+Additionally, $\nabla$ is the spatial differential operator with respect to the current configuration.
+%
+Note that the stress is often a nonlinear function of the state and therefore the dynamics are nonlinear.
+%
+%
+The artificial viscosity regularizes strong shocks which otherwise would have a thickness significantly below the spatial resolution of the computational mesh~\cite{lew_artificial-viscosity_2001}.
+%
+This topic will be discussed in more detail in Section~\ref{sec:artificial_viscosity}.
+%
+
+%
+To generate the weak form, we multiply by test functions $\phi_i^v$ and $\phi_i^e$ then integrate over the domain $\Omega$ where the superscripts $v$ and $e$ indicate the kinematic and thermodynamic function spaces, respectively.
+%
+For brevity, we only demonstrate the momentum conservation equation with similar steps for the energy conservation equation.
+%
+We have
+\begin{align}
+	\begin{split}
+		\int_\Omega \rho \dfrac{dv}{dt} \cdot \phi^v dx & = \int_{\Omega(t)} \left( \nabla \cdot \sigma \right) \cdot \phi^v dx \\
+		                                                & = -\int_{\Omega(t)} \sigma : \nabla \phi^v dx                         \\
+		                                                & = -\int_{\Omega_0}\sigma : \left( \nabla_X \phi^v F^{-1}\right) J dX  \\
+		                                                & = -\int_{\Omega_0} \left(J \sigma F^{-T} \right) : \nabla_X \phi^v dX \\
+		                                                & = -\int_{\Omega_0} P:\nabla_X \phi^v dX
+	\end{split}
+\end{align}
+where $\Omega_0$ is the initial/reference configuration, $F = \nabla_X(x)$ is the deformation gradient, $J = \det(F)$ is the Jacobian, and $P$ is the Piola-Kirchhoff stress.
+%
+Each spatial dimension is discretized using 3rd order $H^1$ elements in kinematic variables ($x, v$) and 2nd order $L^2$ elements with positive Bernstein polynomials in the thermodynamic variable $e$.
+%
+
+%
+The pull-back operation into the reference configuration carries a few advantages.
+%
+First, the mass matrix has constant coefficients in time.
+%
+This significantly reduces the total amount of computation because the mass matrix only needs to be calculated and inverted once and can be re-used as long the mesh is not moving relative to the reference configuration.
+%
+A consequence of this is that the relation for density becomes algebraic through mass conservation as $\det(F)\rho = \rho_0$ where $\rho$, $\rho_0$ are the densities in the current and reference configuations, respectively, and we no longer need to solve for the mass conservation component of Equation~(\ref{eq:lagrangianhydroequations}).
+%
+Next, anisotropic material properties do not need to be advected as material points have fixed locations in the mesh.
+%
+
+%
+We use a Mie-Guneisen equation of state of the form
+\begin{align*}
+	p = \frac{\rho_0 C_0^2 \chi }{(1 - s \chi)^2}\left( 1 - \frac{\Gamma_0}{2} \chi \right) + \rho_0 \Gamma_0 e\, , \quad \quad \chi = 1 - \frac{\rho_0}{\rho}
+\end{align*}
+where $\Gamma_0$ is the Gruneisen parameter and $s$ is the linear Hugoniot slope coefficient.
+\subsection{Artificial Viscosity}\label{sec:artificial_viscosity}
+As stated in the previous section, artificial viscosity is critically important when considering shock propagation in order to prevent spurious oscillations without damping out the features of the shock.
+%
+Various works, see~\cite{campbell_tensor_2001,lew_artificial-viscosity_2001,wilkins_use_1980}, discuss the formulations and derivations.
+%
+We use the particular form of artificial viscosity~\cite{wilkins_use_1980,dobrev_high-order_2012} given by
+\begin{equation}
+	\sigma_v = 0.75 \rho (\gamma_1 l c + \gamma_2 l |\Delta v|) H\left(\Delta v \right)	\text{sym}(\nabla v)
+\end{equation}
+where $\gamma_i$ are strength parameters, $l$ is a length scale associated with an element ($l = l_0 \det(F)^{1/\text{dim}}$), $l_0$ is the initial length scale, $c$ is the wave speed in the element, $\Delta v = \text{tr} (\nabla v)l$ is the velocity jump across the element, and $H$ is the Heaviside function.
+%
+This form has been demonstrated to sufficiently resolve the shock front while not overly damping the rest of the behavior; although we note that for truly high-order dissipation, which we will not consider here.
+%
+Additional limiting is required, such as the hyperviscosity treatment shown in~\cite{BELLOMALDONADO2020}.
+%
+The choice of artificial viscosity, however, does not change the mathematical formulation, as the automatic differentiation tools allow for seamless transition between functional forms without having to recalculate derivatives.
+%
+
+One complication of this function in the context of calculating adjoints is the compression switch.
+%
+In standard methods, we use a Heaviside function which is both non-differentiable, but also discontinuous.
+%
+This is partially remedied by being multiplied by $\text{sym}(\nabla v)$, which raises this to being continuous but non-differentiable.
+%
+We will discuss the issue of non-differentiability in a future work.
+%
+For now, we remedy this by replacing all non-differentiability with a suitable smoothing function.
+%
+In the case of the Heaviside function, we use a sigmoid scaled with the wave speed
+\begin{align*}
+	H(- x) \rightarrow \text{sigmoid}\left( -\frac{x}{h}\right) \, .
+\end{align*}
+Additionally, the absolute value in the quadratic term must replaced with a soft absolute value. This is done by
+\begin{align*}
+	|x| \rightarrow \text{softabs} (x, h) = \text{silu} \left( \frac{x}{h} \right) + \text{silu}\left( \frac{-x}{h} \right)
+\end{align*}
+where silu is the sigmoid linear unit and $h$ is a length scale.
+%
+Exact definitions of these functions can be seen in Equations~(\ref{eq:cont_funcs}).
+
+
+In both these cases we choose $ h = 0.2 c$ to properly scale the transition in the smoothed regions to properly account for the behavior yet maintain differentiability where $c$ is a representative wave speed.
+
+\subsection{Vector Jacobian Products with automatic differentiation}
+Many of the above rely on a \textit{vector-Jacobian product} (VJP) to propagate and accumulate the gradient.
+%
+In many cases we will use this synonymously with the term \textit{adjoint product}.
+%
+Recall from Section~(\ref{sec:discretizethendifferentiate}) that we require the computation of the VJP of the time derivatives.
+%
+To generate the VJP, we construct the global inner product
+%
+\begin{equation}
+	M = \lambda \cdot \dot{y} = \sum_i \lambda_i^x \dot{x}_i + \sum_i \lambda_i^v \dot{v}_i + \sum_i \lambda_i^e \dot{e}_i
+\end{equation}
+%
+where the vector values refer to the discrete state vectors associated with those degrees of freedom.
+%
+
+%
+If we plug in the semi-discrete forms of the equations of motion, we have
+%
+\begin{align}
+	\begin{split}
+		M & = \sum_i \lambda_i^x v_i - \sum_{ij} \lambda_i^v M_{v,ij}^{-1}\int_{\Omega_0} \left( P : \nabla_X \phi_j^v \right) dX + \sum_{ij} \lambda_i^e M_{e,ij}^{-1} \int_{\Omega_0}\left( P:\nabla_X v\right)\phi_e^j dX \\
+		  & = \sum_i \lambda_i^x v_i - \int_{\Omega_0} \left( P:\nabla_X \tilde{\lambda}_v \right) dX + \int_{\Omega_0} \left( P:\nabla_X v \right) \tilde{\lambda}_e dX                                                     \\
+		  & = \sum_i \lambda_i^x v_i + \int_{\Omega_0} \left( P:(\tilde{\lambda}_e \nabla_X v - \nabla_X \tilde{\lambda}_v)\right) dX                                                                                        \\
+		  & = \sum_i \lambda_i^x v_i + \int_{\Omega_0} m dX\, ,
+	\end{split}
+\end{align}
+%
+where we $\tilde{\lambda}_i = \sum_j M_{ij}^{-1} \lambda_j$ and $m = P:\left( \tilde{\lambda}_e \nabla_X v - \nabla_X \tilde{\lambda}_v \right)$ is the local inner product.
+%
+Note that we project the discrete adjoints $\xi_i$ onto their continuous space counterparts $\xi$ by using the shape functions associated with those fields.
+%
+By taking the derivative of $M$ with respect to the primal fields, we are able to construct the VJP of the time derivatives.
+%
+
+%
+For example, if we take the derivative with respect to the velocity state variable, we have
+%
+\begin{equation}
+	\dfrac{\partial M}{\partial v_i} = \lambda_i^x + \int_{\Omega_0} \left(\dfrac{\partial m}{\partial v} \cdot \phi_i^v + \dfrac{\partial m}{\partial \nabla_X v} : \nabla_X \phi_i^v \right) dX\, .
+\end{equation}
+%
+The above expression allows us to immediately see the benefit of constructing $m$.
+%
+First, we have turned the adjoint product calculation into a term which looks like a force call.
+%
+This allows us to take advantage the standard finite element framework which exists to calculate linear forms and calculate adjoints in a matrix-free manner.
+Next, the derivatives of $m$ are now done at the quadrature points and are entirely local and parallelizable.
+%
+\textit{This is ideal for automatic differentiation as we no longer have to consider information transfer across compute nodes in our computational graph.}
+%
+This treatment of adjoints can be generalized and can be see in Section~\ref{sec:finite_element_adjoints} and the ``correctness'' is verified in Section~\ref{sec:hydro_taylor_test}.
+
+\section{Suppression of Richmyer-Meshkov Instability induced jetting}\label{sec:LagrangianHydrodynamics}
+As noted in the introduction, RMI plays an important role in many scientific and engineering applications. Depending on the use case, either enhancement or suppression of the RMI jet may be desired.
+%
+In this section, we develop a computational model of RMI, multi-objective functions to describe what we are after in terms of stable shock acceleration, the adjoint computation, some specific discussion of tracer particles practically needed to implement our specific objective function, and results showing RMI suppression.
+
+\subsection{Forward Pass}
+The domain is separated into two regions. The left is high density ($\rho_0 = 10$) and the right is low density ($\rho_0 = 1$).
+%
+A subset of the left domain ($\Omega_1 \subset \Omega \text{  s.t. } X < 1$) is the controllable domain and is initialized to a higher internal energy state $e(X \in \Omega_1,0) = 0.15$ with the rest $e(X \notin \Omega_1, 0) = 0.0$.
+%
+The top, left, and bottom boundaries allow for sliding boundary conditions while the right boundary is completely free.
+
+
+
+
+A shock wave is generated due to the internal energy of the left side being higher than the rest of the domain.
+%
+This causes a high pressure region with a sharp interface against a low pressure region, resulting in a force along the interface.
+%
+As the high energy region expands, it generates a shock wave which propagates through the high density region.
+%
+Once it hits the interface, baroclinic torque is generated due to the misalignment between the pressure gradient and the density gradient.
+%
+This torque causes the system to evolve in such a way that the interface will invert itself and continue to grow.
+%
+We use the 4th order Runge-Kutta for time integration and solve until $t=7$.
+
+The goal is to design the profile of the internal energy in $\Omega_1$ to minimize the RMI jet length at a particular time.
+
+\subsection{Objective Function}
+In order to minimize the jet length, we need a metric which takes the state of the system as an input and returns a single scalar value.
+%
+By minimizing said functional, we obtain better results (i.e. reducing the jet length).
+%
+Additionally, we would like to push the interface and not remove all accelerations (i.e. we want the optimizer to avoid the trivial solution of no acceleration).
+%
+As a result, we would also like to include a term in the objective that increases the velocity of the interface while decreasing the objective value. In order to accomplish this, we introduce Lagrangian tracer particles.
+%
+These are virtual particles which are linked to particular material points.
+%
+%In an HPC environment, there are complexities defining these in a method that allows for adjoint calculations. 
+%
+%This is due to the question of ownership of data and how to communicate information about tracers across multiple threads. 
+%
+%The exact implementation of these objects, however, is outside the scope of this manuscript.
+One point of complexity is that, although tracer particles traditionally can be defined completely locally to the thread that ``owns'' that point, this is not true when conducting adjoint calculations.
+%
+Here, we must collect the data from all the tracer particles onto a root thread in order to take derivatives of mathematical operations between the tracers, then propagate those derivatives back to the relevant threads.
+%
+This will become clear in Equation~(\ref{eq:rmi_objective}) as simply calculating that objective requires all of the tracer data to be known to a single thread.
+%
+The total gradient of this objective (with respect to the tracer point values) then needs to be distributed to the threads which take ``ownership'' over the data.
+
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.6\textwidth]{figure_7.png}
+	\caption{Domain and initial energy configuration for the RMI case study. The nodes (1, 2 ,3) indicate where the tracer particles are placed (used in Equation~\ref{eq:rmi_objective}).}\label{fig:rmi_config}
+\end{figure}
+
+
+We introduce a notation where $x_i$ are the $X$ components of the deformation of particles $i$, $v_i$ are the $X$ components of the velocities of particles $i$, $x_\text{outer} = \text{ave}(x_2, x_3)$, $v_\text{ave} = \text{ave}(v_1, v_2, v_3)$; then define the terminal objective
+\begin{align}\label{eq:rmi_objective}
+	O = \frac{1}{2} \lambda_1 (x_1 - x_\text{outer})^2 +  \frac{\lambda_2}{\delta + |v_\text{ave}|}
+\end{align}
+where $\lambda_i \geq 0$ are scaling factors and all measurements are taken at the final timestep.
+%
+By inspection, it can be seen that this function is minimized when
+\begin{align*}
+	x_\text{outer} = x_1 \, , \quad \quad     & \text{Flatten the interface} \\
+	v_\text{ave} = \pm \infty\, , \quad \quad & \text{Accelerate interface}
+\end{align*}
+%
+when $\lambda_i > 0$.
+
+In our particular case, we would like to push $v_\text{ave} \to +\infty$ as opposed to the other side.
+%
+This is remedied by picking a suitable initial guess and using a local optimizer to push the solution towards one solution as opposed to the other.
+%
+If using completely random initial conditions or a global minimizer, then a different objective function may be necessary.
+%
+Also, note that Lagrangian tracer particles use local data to construct their state, as a result, we can generally write that
+\begin{align} \label{eq:tracer}
+	\begin{split}
+		\mathbf{x}_i & = \mathbf{x}_i(X, x, v, e) \, , \\
+		\mathbf{v}_i & = \mathbf{v}_i(X, x, v, e) \, , \\
+		e_i          & = e_i(X, x, v, e) \, ,
+	\end{split}
+\end{align}
+where the terms on the left are features of the tracer particles and the equations on the right are functions which project the global state vectors to the tracer data.
+\subsection{Adjoint Calculation}
+As a result of the tracer definition in~(\ref{eq:tracer}), we can calculate the gradient of the objective as
+\begin{align*}
+	\dfrac{\partial O}{\partial X} & = \sum_i\left(  \dfrac{\partial O}{\partial \mathbf{x}_i} \cdot \dfrac{\partial \mathbf{x}_i}{\partial X} +  \dfrac{\partial O}{\partial \mathbf{v}_i }\cdot \dfrac{\partial \mathbf{v}_i}{\partial X} + \dfrac{\partial O}{\partial e_i} \dfrac{\partial e_i}{\partial X}\right) \, , \\
+	\dfrac{\partial O}{\partial x} & = \sum_i\left(  \dfrac{\partial O}{\partial \mathbf{x}_i} \cdot \dfrac{\partial \mathbf{x}_i}{\partial x} +  \dfrac{\partial O}{\partial \mathbf{v}_i }\cdot \dfrac{\partial \mathbf{v}_i}{\partial x} + \dfrac{\partial O}{\partial e_i} \dfrac{\partial e_i}{\partial x}\right) \, , \\
+	\dfrac{\partial O}{\partial v} & = \sum_i\left(  \dfrac{\partial O}{\partial \mathbf{x}_i} \cdot \dfrac{\partial \mathbf{x}_i}{\partial v} +  \dfrac{\partial O}{\partial \mathbf{v}_i }\cdot \dfrac{\partial \mathbf{v}_i}{\partial v} + \dfrac{\partial O}{\partial e_i} \dfrac{\partial e_i}{\partial v}\right) \, , \\
+	\dfrac{\partial O}{\partial e} & = \sum_i\left(  \dfrac{\partial O}{\partial \mathbf{x}_i} \cdot \dfrac{\partial \mathbf{x}_i}{\partial e} +  \dfrac{\partial O}{\partial \mathbf{v}_i }\cdot \dfrac{\partial \mathbf{v}_i}{\partial e} + \dfrac{\partial O}{\partial e_i} \dfrac{\partial e_i}{\partial e}\right) \, . \\
+\end{align*}
+Note that the relations above tend to be simple, but we maintain all the terms for the sake of generality.
+%
+Similar to previously discussed methods, we calculate the adjoints of the time integration scheme and of the physics separately and compose them in order to find the incremental adjoint.
+%
+By stepping backwards in time until the initial timestep, we can accumulate the adjoint of the objective with respect to the entire initial state $X, x, v, e$.
+%
+From here, we mask the adjoint to only include the components in $\Omega_1$.
+%
+We note that, although we are using tracer particles and our objective function is dependent on only a few state variables, the overall adjoint structure will propagate the sensitivities to the whole domain as we move backwards in time, so the sensitivity \textit{does not} maintain the sparsity of the initial variations.
+%
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[width=\textwidth]{figure_8.png}
+	\caption{Visualization of pressure and adjoint fields through the solve. The top plots are solutions at time $t=0$ while the bottom are the final steps at $t = 7$. Following the result from the top left and working down, we integrate forward in time. Then from the bottom left to bottom right, we calculate the objective and initial gradient. Moving up, we integrate backwards in time to solve for the adjoint energy field to calculate the gradient. Note that the system has the density interface seen in Figure~\ref{fig:rmi_config}.}\label{fig:rmi_adjoint_loop}
+\end{figure}
+
+An example of the forward and adjoint loops are shown in Figure~\ref{fig:rmi_adjoint_loop}.
+%
+We plot the pressure evolution from the forward pass; however, we cache all the data needed to recreate the state using the checkpointing methods from Section~\ref{sec:checkpointing}.
+%
+Then, we calculate our objective function (see equation~\ref{eq:rmi_objective}) and its gradient with respect to the final state.
+%
+Performing adjoint calculations, we step backwards in time, recreating the state as needed using the checkpoints.
+%
+We visualize the adjoint of the energy field (masked by the domain of control $\Omega_1$) as we step backward in time.
+%
+At the final time step of the adjoint solve ($t=0$) we are left with the gradient of our objective with respect to the initial state within $\Omega_1$.
+%
+After subsampling our full gradient vector to the sub-domain $\Omega_1$, we are left with about 400 degrees of freedom.
+%
+We then update our initial state using \textit{gradient descent} with the provided perturbation.
+%
+Visualization of the adjoint fields is extremely useful when trying to understand the system's sensitivities.
+%
+Additionally, these fields provide vital information which designers can use to improve designs ad hoc.
+
+\subsection{Results}\label{sec:RMI_Optimization}
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[width=\textwidth]{figure_9.png}
+	\caption{Demonstration of mitigation of RMI through the gradient descent procedure. (a) The initial energy profile at three different stages (initial guess, 8 steps, 88 steps). (b) The deformation profile at the final timestep for each of those same three stages. (c) The evolution of the jet length over time for different iterations of gradient descent. (d) The average interface velocity over time for different iterations. (e) The change in objective function for each iteration.}\label{fig:rmi_results}
+\end{figure}
+
+Figure~(\ref{fig:rmi_results}) summarizes the results of the optimization procedure described in the previous sections.
+
+
+We note a few features of the solution.
+%
+First, consider the bifurcation of the initial energy into left and right ``hot spots''.
+%
+These regions will cause expansion in both of these locations, causing a complex shock front.
+%
+Notably, it actually splits the shock into two different features.
+%
+First, it will split the shock so it hits the bottom and top faces harder than the middle inclusion.
+%
+This will temper RMI growth to flatten the interface.
+%
+Next, a second, stronger shock wave hits the (now flattened) interface accelerating it more.
+%
+This type of energy distribution is intuitive in hindsight, but we find it remarkable that this was discovered automatically through gradient based optimization.
+
+
+The optimization algorithm can be seen to go through multiple stages.
+%
+This is due to the competing objectives given in Equation~(\ref{eq:rmi_objective}).
+%
+Initially, the priority is interface flattening.
+%
+Then, when that error is sufficiently low, the interface velocity is slowly increased.
+%
+This behavior can be seen in Figure~(\ref{fig:rmi_results}) as the final interface velocity initial is lowered, then, while maintaining a flat interface, the interface velocity is raised.
+%
+Eventually, the interface velocity even surpasses that of the initial guess.
+%
+Remarkably, this demonstrates that utilizing gradient optimization, RMI suppression is readily achievable without a decreasing the intensity of the drive.
+%
+Moreover, as RMI is a general, challenging prototype for hydrodynamic behavior, this example demonstrates the ability of this class of optimization methods to be used in practical applications involving Lagrangian hydrodynamics.
+
+\subsection{Energy Constrained Optimization}
+A potential issue with the above results (with regard to the energy field) is that the optimized solution may be infeasible for multiple reasons.
+%
+Two factors we consider here are (1) we want to operate within a particular energy budget and (2) the initial energies cannot be negative locally.
+%
+The first condition follows from the fact that we do not want to produce solutions which require arbitrary large or small amounts of energy in order to produce.
+%
+In practical problems, such as laser drives, this is represented by a maximal laser intensity allowed in the specifications.
+%
+
+%
+The second condition is a consequence of physical principals of thermodynamics.
+%
+Specifically, it is impossible to create a system with negative absolute temperature anywhere.
+%
+Thus, we want all our designs to remain in the strictly positive regime.
+%
+
+%
+In mathematical terms, we have two separate conditions we would like to satisfy:
+\begin{align}
+	\int_{\Omega|_{t=0}} e d\Omega = C \, , \\
+	e(X, t = 0) \geq 0 \, .
+\end{align}
+The first enforces that the total energy remains constant in the optimization procedure and the second that the energy remains in the feasible regime.
+%
+This is a limitation, not of the optimization procedure, but of the formulation of the physics we are trying to model.
+%
+As a result, incorporating both of these constraints into an optimization procedure is necessary to produce both feasible and practical results.
+\subsubsection{Equality constraint}
+Consider a constraint given by the equation
+%
+\begin{equation}
+	g(y) = 0\, .
+\end{equation}
+%
+We require that a perturbation $\delta y$ also satisfies the constraint, i.e.,
+%
+\[
+	g(y + \delta y) = 0\, .
+\]
+%
+Assuming small perturbations, we can Taylor expand the above equation to get
+%
+\begin{equation}
+	\dfrac{\partial g}{\partial y} \cdot \delta y  = g_y \cdot \delta y= 0 \, .
+\end{equation}
+%
+As a result, we can define a new perturbation $\delta \tilde{y}$ such that
+%
+\begin{equation}
+	\delta \tilde{y} = \left( I - \frac{1}{\left| g_y \right|^2} g_y \otimes g_y\right)	\delta y \, .
+\end{equation}
+%
+For the specific case where we want to keep the total internal energy constant, we have the constraint
+%
+\begin{align}
+	g(\mathbf{e}) = \int_\Omega e d\Omega
+\end{align}
+%
+Taking the derivative as above, we have
+%
+\begin{align}
+	\dfrac{\partial g}{\partial e_i} = \int_\Omega \dfrac{\partial e}{\partial e_i} d\Omega = \int_\Omega \phi_i d\Omega\, .
+\end{align}
+%
+Conveniently, this derivative is constant with respect to the state variables, owing to the linearity of the energy conservation constraint.
+%
+As a result, the application of the projection method described above will satisfy the constraint exactly.
+%
+For shorthand, we will refer to the constraint projection as $\delta \hat{e} = P(\delta e)$.
+\subsubsection{Inequality Constraint}
+The second constraint we want to satisfy is that the initial energy is locally non-negative.
+%
+Because we are considering functions $e \in L^2(\Omega, t)$ with positive Bernstein polynomials, we can take advantage of the property that values of $e$ within the element will be extremal at node values \cite{anderson2016}.
+%
+Therefore, it is sufficient to apply the constraint on the discretization $e_i$.
+%
+The rectification of values is not a unique process; however, we choose the simplest as
+\begin{align}
+	\delta \hat{e} = \text{ReLU}(e + \delta e) - e\, ,
+\end{align}
+%
+where $\text{ReLU}(x) = \max(0, x)$.
+%
+This transformation takes a perturbation $\delta e$ and energy state $e$ as inputs, rectifies the sum of the two, then returns the perturbation such that all values of the resulting energy are non-negative.
+%
+Note that we can equivalently verify that the updated state maintains energy positivity.
+%
+For shorthand, we will refer to this transformation as
+\begin{align}
+	\delta \hat{e} = R(\delta e, e)\, ,
+\end{align}
+
+\subsubsection{Combination}\label{sec:Energy_Conservation_Combination}
+There are many ways to satisfy the above two constraints in an optimization paradigm.
+%
+The standard is to define Lagrange multipliers for both constraints, then evaluate the KKT conditions to ensure feasibility of the perturbations.
+%
+We take a different approach.
+%
+Because the dimensionality of the inequality constraint can be quite high, we choose to modify the perturbations to ensure that the constraints remain satisfied.
+%
+We use the following algorithm to enforce the constraint
+\begin{enumerate}
+	\item Solve the adjoint problem to obtain an initial $\delta e$
+	\item Set a \textit{tolerance} value for constraint violation
+	\item While \textit{error} is greater than \textit{tolerance}
+	      \begin{enumerate}
+		      \item Solve $\delta e \leftarrow R(\delta e, e)$
+		      \item Solve $\delta e \leftarrow P(\delta e)$
+		      \item Evaluate infeasibility \textit{error} $ = E(e + \delta e)$
+	      \end{enumerate}
+\end{enumerate}
+where we use an infeasibility error $E(x) = \text{max}(\text{ReLU}(-x))$ which is effectively a $L^\infty$ norm on the error.
+%
+Additionally, because the projection operator $P$ is always applied second, we ensure that the resulting perturbation exactly satisfies energy conservation.
+%
+We note that the projection step may break the positivity constraint and thus we need to verify that the infeasibility error is sufficiently small.
+\subsubsection{Results}\label{sec:RMI_Optimization_Constrained}
+We repeat the optimization procedure described in Section~\ref{sec:RMI_Optimization} with the additional energy constraints described in Section~\ref{sec:Energy_Conservation_Combination}.
+
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=\textwidth]{figure_10.png}
+	\caption{Demonstration of mitigation of RMI through the gradient descent procedure. (a) The initial energy profile at three different stages (initial guess, 8 steps, 88 steps). (b) The deformation profile at the final timestep for each of those same three stages. (c) The evolution of the jet length over time for different iterations of gradient descent. (d) The average interface velocity over time for different iterations. (e) The change in objective function for each iteration.}\label{fig:rmi_results_energy_constrained}
+\end{figure}
+
+It can be seen in Figure~\ref{fig:rmi_results_energy_constrained} that the addition of energy conservation and non-negativity constraints does indeed change the structure of the optimized solution.
+%
+In particular, the solution avoids large amounts of energy locally above and below the hot spot in the center.
+%
+Generally, designing for experiments will often include constraints such as this in order to generate feasible designs.
+%
+
+\section{Conclusion}
+In this article, we have developed a computational strategy for efficiently differentiating the predicted outputs of a high-order finite element Lagrangian hydrodynamics code with respect to its inputs via a combination of adjoint theory and automatic differentiation; further, we have applied this to a challenging problem of interface stability. This involved individually differentiating the time-stepping update, the (partially-)assembled force vector, and zero-dimensional physics (quadrature point update).
+%
+The above demonstrations required various simultaneous developments (i) an efficient checkpointing algorithm and (ii) efficient vector-matrix product strategy for the time updates. (iii) We needed a proper regularization of the artificial viscosity which provides computational regularity for studying shocks -- discontinuities in the thermodynamic state of the material - which gives this area of physics challenging character.
+%
+In order to efficiently represent the derivative of the finite element force vector, we have leveraged (iv) partial assembly to compute the action of the resulting operator; this enables efficient computation of vector-matrix products in the time-stepping and optimization.
+%
+Finally, we have utilized an efficient implementation of automatic differentiation at the quadrature point level to account for the extensive complexity of material function calls; this allows us to use the extreme human-time efficiency in terms of functional complexity of AD while simultaneously retaining computational efficiency of adjoint methods.
+
+We have applied this efficient computation of gradients to optimization of the historically challenging problem in hydrodynamics of stable shock-acceleration of density interfaces; this application is critically important to major scientific challenges in fusion energy experiments such as those conducted at the national ignition facility. In these applications, the process of confining the fusion fuel to ignition conditions invariably involves launching multiple shock waves via a laser energy source which pass through density interfaces (typically diamond - DT).
+%
+We show that for a prototype problem of this phenomenon called RMI, the gradient based optimization rapidly tailors a complex spatially dependent high dimensional energy drive which simultaneously suppresses the instability and accelerates the interface to a higher velocity than the baseline case.
+%
+In addition, we apply various constraints to our solutions with the optimization procedure in order to more accurately represent both physical and practical limitations of experimental methods.
+%
+This simultaneous achievement is remarkable and demonstrates the value of bringing gradient based optimization to bear on problems involving computational hydrodynamics.
+
+We close with some speculation on the future of this field; we advocate that there are many important tasks to do.
+%
+First, we have shown this for Lagrangian Hydrodynamics; state-of-the-art codes utilize arbitrary Lagrangian-Eulerian (ALE) strategies to manage the computational mesh via the introduction of a remap step which moves the materials appropriately to a new mesh. The absence of such a strategy tends to lead to mesh tangling. A key near-term topic of research is the differentiation of this step.
+%
+This is made challenging since formally, one must differentiate the remap, the re-mesh, and consider the multi-material case which
+involves discontinuous material interfaces.
+%
+Second, hydrodynamics oftentimes does not operate alone. In general, we must track many additional state variables associated with, for instance, phase transitions, material strength, or other multiphysics.
+%
+Tracking the dependencies in the resulting differentiation calculation in a robust and extensible manner is challenging.
+%
+Third, we believe that there are many interesting problems in hydrodynamics that should be considered, for instance, the authors intend to eventually conduct realistic simulations of  NIF laser driven shots aiming to optimize capsule shape to account for well known and persistent laser drive asymmetries.
+%
+Finally, there is ample opportunity to apply these techniques to machine learning and uncertainty quantification.
+%
+A cheap gradient evaluation, as we have provided in this article, can be utilized by Sobolev learning strategies~\cite{czarnecki2017sobolev} and Hamiltonian Monte Carlo~\cite{hoffman2014no}.
+\section{Acknowledgements}
+This work performed under the auspices of the U.S. Department of Energy by Lawrence Livermore National Laboratory under Contract DE-AC52-07NA27344. This work was supported by the LLNL-LDRD Program under Project No. 21-SI-006, Project No. 24-ERD-005, and Project No. 26-SI-002. The Lawrence Livermore National Security journal number is LLNL-JRNL-872441. We thank Libby Glascoe, John Edwards, and Teresa Bailey for their outstanding programmatic leadership and advocacy for this topic. We thank Sam Mish and Robert Carson for numerous interesting discussions.
+
+\bibliography{bibliography}
+% \bibliographystyle{plain}
+
+\newpage
+
+% \input{supplement.tex}
+
+\section{Supplemental Information}
+% \subsection{Differentiate then Discretize With Non-Dirichlet Boundaries}
+% In the main text, we consider all boundary conditions for the sake of brevity.
+% %
+% Here, we include von-Neumann boundaries (i.e. tractions) as well as Dirichlet for a more complete treatment.
+% %
+% Consider a design field $\beta$ and a response $y$ that are linked through an initial boundary value problem (IBVP) such that
+% %
+% \begin{align}
+% 	\begin{split}
+% 		\dot(y)(X, t, \beta) &= f(X, y(X, t, \beta), \nabla y(X, t, \beta), \beta, t) \\
+% 		y(X, 0, \beta) &= y_0(X, \beta) \\
+% 		y(\partial \Omega_1, t, \beta) &= 0 \\
+
+% 	\end{split}
+% \end{align}
+
+\subsection{Scaling with Derivatives} \label{sec:scaling}
+Consider a $d$th order polynomial in $n$ dimensions.
+%
+This will have $C(d + n, d)$ coefficients associated with it.
+%
+In order to fully define the coefficients from an unknown function, we will then require $C(d+n, d)$ individual function evaluations.
+%
+In order to consider the cost benefit of calculating derivatives, we compare the cost of fully defining the polynomial if, every time we do a forward solve, we also calculate the gradient at that point.
+%
+The forward solve gives one equation while the derivative gives $n$ additional equations.
+%
+If we were to match a $2$nd order polynomial in $10$ dimensions, we would require $66$ forward solves. With gradients we would require $6$ forward solves and $6$ gradient solves.
+%
+In 100 dimensions, this becomes $5151$ forward solves but including gradient calculations requires $51$ forward and gradient.
+%
+We calculate the number of forward and gradient solves necessary to fully solve the system by solving when $N (1 + n) = C(d + n, d)$.
+%
+We then find the ratio of number of solves necessary for just the forward solve vs number of forward + gradient solves with
+$$
+	\text{Cost Ratio} = \frac{C(d + n, d)}{2 N} = \frac{1 + n}{2} \, .
+$$
+As a result we see that the cost of evaluating with just forward solves scales linearly with the number of dimensions we are solving in.
+
+There is additional benefit that the gradient solved returns the steepest descent direction which is particularly useful in optimization when you are not trying to fully characterize the functional form.
+\subsection{Infdim Math}\label{sec:infdim_math}
+\begin{align}
+	O_N(\beta) = \sum_{k = 1}^N o_k(y_k, \beta, \Delta t) + \sum_{k = 1}^N \lambda_k^T (y_k - f_k(y_{k-1}, \beta, \Delta t))
+\end{align}
+Taking the derivative with respect to $\beta$ we have
+\begin{align}
+	\dfrac{\partial O_N}{\partial \beta} = \sum_{k=1}^N \left(\dfrac{\partial o_k}{\partial y_k} \dfrac{\partial y_k}{\partial \beta} + \dfrac{\partial o_k}{\partial \beta} \right) + \sum_{k=1}^N \lambda_k^T \left(\dfrac{\partial y_k}{\partial \beta} - \dfrac{\partial f_k}{\partial y_{k-1}} \dfrac{\partial y_{k-1}}{\partial \beta} - \dfrac{\partial f_k}{\partial \beta} \right)
+\end{align}
+
+Adjusting indices in the second term gives
+\begin{align}
+	\dfrac{\partial O_N}{\partial \beta} = \sum_{k=1}^N \left(\dfrac{\partial o_k}{\partial y_k} \dfrac{\partial y_k}{\partial \beta} + \dfrac{\partial o_k}{\partial \beta} \right) + \sum_{k=1}^N \lambda_k^T \left(\dfrac{\partial y_k}{\partial \beta}  - \dfrac{\partial f_k}{\partial \beta}\right) - \sum_{k=0}^{N-1} \lambda_{k+1}^T \dfrac{\partial f_{k+1}}{\partial y_{k}} \dfrac{\partial y_{k}}{\partial \beta}
+\end{align}
+
+Expanding out the sums to combine the internal summation,
+\begin{align}
+	\dfrac{\partial O_N}{\partial \beta} & = \dfrac{\partial o_N}{\partial y_N} \dfrac{\partial y_N}{\partial \beta} + \dfrac{\partial o_N}{\partial \beta} + \lambda_N^T \left( \dfrac{\partial y_N}{\partial \beta} - \dfrac{\partial f_N}{\partial \beta} \right) + \sum_{k=1}^{N-1} \left( \dfrac{\partial o_k}{\partial y_k}\dfrac{\partial y_k}{\partial \beta} + \dfrac{\partial o_k}{\partial \beta} + \lambda_k^T \left( \dfrac{\partial y_k}{\partial \beta} - \dfrac{\partial f_k}{\partial \beta}\right) - \lambda_{k+1}^T \dfrac{\partial f_{k+1}}{\partial y_k} \dfrac{\partial y_k}{\partial \beta}  \right) - \lambda_1^T \dfrac{\partial f_1}{\partial y_0} \dfrac{\partial y_0}{\partial \beta}
+\end{align}
+
+Grouping terms that contain $\partial y_k/\partial \beta$, we have
+\begin{align}
+	\dfrac{\partial O_N}{\partial \beta} = \left(\dfrac{\partial o_N}{\partial y_N} + \lambda_N^T \right)\dfrac{\partial y_N}{\partial \beta} + \sum_{k=1}^{N-1} \left( \dfrac{\partial o_k}{\partial y_k} + \lambda_k^T - \lambda_{k+1}^T \dfrac{\partial f_{k+1}}{\partial y}\right) \dfrac{\partial y_k}{\partial \beta} + \sum_{k=1}^{N}\left( \dfrac{\partial o_k}{\partial \beta} - \lambda_k^T \dfrac{\partial f_k}{\partial \beta}\right) - \lambda_1^T \dfrac{\partial f_1}{\partial y_0} \dfrac{\partial y_0}{\partial \beta}
+\end{align}
+
+
+
+\subsection{Continuous Analogues of Non-differentiable functions}
+In some cases we smooth non-differentiable or discontinuous functions.
+%
+Some functions used are
+\begin{align}
+	\begin{split}\label{eq:cont_funcs}
+		\text{sigmoid}(x) & = \frac{1}{1 + \exp(-x)} \\
+		\text{silu}(x)    & = x * \text{sigmoid}(x)
+	\end{split}
+\end{align}
+%
+
+
+\subsection{Adjoints of Generic Finite Element Systems}\label{sec:finite_element_adjoints}
+Consider a generic forcing function of the form
+%
+\begin{equation}
+	F_i = \int_{\Omega} \left( f(x, y(x), \nabla y(x)) \cdot \phi_i(x) + f'(x, y(x), \nabla y(x)) \cdot \nabla \phi_i(x) \right) dx
+\end{equation}
+%
+Given that we have terms which involve functions $y$, $\phi$ and their derivatives $\nabla y$, $\nabla \phi$, we ensure we are working in an appropriate function space, such as $H^1$.
+%
+If we consider the inner product of this term and some arbitrary adjoint variable, we have
+%
+\begin{align}
+	\begin{split}
+		M = \sum_i \lambda_i F_i & = \sum_i \lambda_i \int_\Omega \left( f(x, y(x), \nabla y(x) \cdot \phi_i(x) + f'(x, y(x, \nabla y(x)) \cdot \nabla \phi_i(x)))\right) dx \\
+		                         & = \int_\Omega \left( f(x, y(x), \nabla y(x)) \cdot \lambda(x) + f'(x, y(x), \nabla y(x)) \cdot \nabla \lambda(x)\right) dx \, .
+	\end{split}
+\end{align}
+%
+Combining the integrand into a single variable as $m(x, y, \nabla y, \lambda, \nabla \lambda) = f(x, y, \nabla y) \cdot \lambda + f'(x, y, \nabla y) \cdot \nabla \lambda$, we write this integral in the simplest form
+\begin{equation}
+	M = \sum_i \lambda_i F_i = \int_\Omega m(x, y(x), \nabla y(x), \lambda(x), \nabla \lambda(x)) dx
+\end{equation}
+If we now take the derivative with respect to the primal discretized field variable $y_i$, we have
+\begin{align}
+	\dfrac{\partial}{\partial y_i} \left( \sum_k \xi_k F_k \right) = \sum_k \xi_k \dfrac{\partial F_k}{\partial y_i} & = \int_\Omega \left( \dfrac{\partial m}{\partial y} \cdot \phi_i(x) + \dfrac{\partial m}{\partial \nabla y} \cdot \nabla \phi_i(x)  \right) dx
+\end{align}
+where we use that $y(x) = \sum_i y_i \phi_i(x)$ as the standard Galerkin expansion.
+%
+As mentioned in the main text, this form has several advantages.
+\begin{enumerate}
+	\item The vector-Jacobian product involved in the adjoint calculation becomes matrix free,
+	\item The calculation of $m$ is local and parallelizable to calculations at quadrature points,
+	\item The calculations of the derivatives $\dfrac{\partial m}{\partial y}$ and $\dfrac{\partial m}{\partial \nabla y}$ are entirely parallelized and utilize the same force calculation structure present in all finite element codes.
+\end{enumerate}
+%
+This allows us to construct computationally efficient adjoint products which are necessary in computationally intensive problems such as hydrocodes.
+%
+
+\subsection{Taylor Test of Hydrodynamic System}\label{sec:hydro_taylor_test}
+We verify the consistency of gradients by conducting a Taylor test on the Lagrangian hydrodynamic system.
+%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figure_11.png}
+	\caption{Taylor test of Lagrangian hydrodynamics.}
+\end{figure}
+%
+The process is outlined in Section~\ref{sec:taylor_test}.
+%
+We define a functional form $f(v, y) = v \cdot \dot{y}$ where $v$ is a random vector and $y$ is the current state ($x,v,e$).
+%
+The state is then perturbed using $y = y_0 + h \delta y$ for various $h$ and $\delta y$ is another random vector which conforms to boundary conditions.
+
+\subsection{Mesh Convergence}
+We verify the convergence with respect to the mesh by visualizing the adjoint field.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figure_12.png}
+	\caption{Solution comparison for different meshes.}\label{fig:mesh_comparison}
+\end{figure}
+\subsection{Lower Energy Results}
+We also run the results with the initial energy initialized to $e(\Omega_1, 0) = 0.5$.
+
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=\textwidth]{figure_13.png}
+	\caption{Demonstration of mitigation of RMI through the gradient descent procedure. (a) The initial energy profile at three different stages (initial guess, 8 steps, 88 steps). (b) The deformation profile at the final timestep for each of those same three stages. (c) The evolution of the jet length over time for different iterations of gradient descent. (d) The average interface velocity over time for different iterations. (e) The change in objective function for each iteration.}\label{fig:rmi_results_old}
+\end{figure}
+
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-harv.tex'.
+
+
